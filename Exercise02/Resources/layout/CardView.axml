@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        card_view:cardElevation="@dimen/elevation_card"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="@dimen/radius_card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_medium"
+            android:id="@+id/linearLayout1">
+            <ImageView
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_width="@dimen/width_icon"
+                android:layout_height="@dimen/hight_icon"
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
+                android:id="@+id/image" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:id="@+id/linearLayout2">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Caption"
+                    android:id="@+id/name"
+                    android:layout_marginLeft="@dimen/margin_small" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:id="@+id/linearLayout3">
+                    <TextView
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Caption"
+                        android:id="@+id/tv_priceperunit"
+                        android:gravity="left"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:text="Caption"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/tv_unit"
+                        android:gravity="left"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/linearLayout4">
+                        <ImageButton
+                            android:src="@drawable/minus1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/minus"
+                            android:background="@null" />
+                        <TextView
+                            android:text="0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:id="@+id/tv_value" />
+                        <ImageButton
+                            android:src="@drawable/plus1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:id="@+id/plus"
+                            android:background="@null" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>
