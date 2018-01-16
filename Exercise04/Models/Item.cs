@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Exercise044.Models
+namespace Exercise04.Models
 {
     class Item
     {

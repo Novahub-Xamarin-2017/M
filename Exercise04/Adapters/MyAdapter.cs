@@ -4,9 +4,10 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using System.Collections.Generic;
-using Exercise044.Models;
+using Exercise04.Models;
+using Android.App;
 
-namespace Exercise044.Adapters
+namespace Exercise04.Adapters
 {
     class MyAdapter : RecyclerView.Adapter
     {
@@ -54,6 +55,13 @@ namespace Exercise044.Adapters
         public MyAdapterViewHolder(View itemView) : base(itemView)
         {
             TextViewName = itemView.FindViewById<TextView>(Resource.Id.tv_name);
+
+            itemView.Click += delegate
+            {
+                FragmentTransaction transcation = ((Activity)itemView.Context).FragmentManager.BeginTransaction();
+                DialogClass signup = new DialogClass(Info);
+                signup.Show(transcation, "Dialog Fragment");
+            };
         }
     }
 }
