@@ -10,13 +10,13 @@ using Android.App;
 
 namespace Exercise05.Adapters
 {
-    class MyAdapter : RecyclerView.Adapter
+    class TaskAdapter : RecyclerView.Adapter
     {
-        private List<Task> items;
+        private List<Task> tasks;
 
-        public MyAdapter(List<Task> items)
+        public TaskAdapter(List<Task> tasks)
         {
-            this.items = items;
+            this.tasks = tasks;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -25,18 +25,18 @@ namespace Exercise05.Adapters
             var itemView = LayoutInflater.From(parent.Context).
                    Inflate(id, parent, false);
 
-            return new MyAdapterViewHolder(itemView);
+            return new TaskViewHolder(itemView);
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            ((MyAdapterViewHolder)viewHolder).SetMyViewHolder(items[position]);
+            ((TaskViewHolder)viewHolder).Task = tasks[position];
         }
 
-        public override int ItemCount => items.Count;
+        public override int ItemCount => tasks.Count;
     }
 
-    public class MyAdapterViewHolder : RecyclerView.ViewHolder
+    public class TaskViewHolder : RecyclerView.ViewHolder
     {
         private View viewLine;
 
@@ -56,7 +56,19 @@ namespace Exercise05.Adapters
 
         private ImageButton imageButtonSetting;
 
-        public MyAdapterViewHolder(View itemView) : base(itemView)
+        private Task task;
+
+        public Task Task
+        {
+            get => task;
+            set
+            {
+                task = value;
+                SetView();
+            }
+        }
+
+        public TaskViewHolder(View itemView) : base(itemView)
         {
             viewLine = itemView.FindViewById<View>(Resource.Id.v_line);
 
@@ -79,7 +91,7 @@ namespace Exercise05.Adapters
             };
         }
 
-        public void SetMyViewHolder(Task task)
+        public void SetView()
         {
             textViewProject.Text = task.Project;
             textViewExercise.Text = task.Exercise;
@@ -89,21 +101,23 @@ namespace Exercise05.Adapters
 
             if (task.DayLeft == 0)
             {
-                buttonDayLeft.Text = "COMPLETED";
-                buttonDayLeft.SetCompoundDrawablesWithIntrinsicBounds(Resource.Drawable.complete, 0, 0, 0);
-
-                buttonResumeOrReport.Text = "REPORT";
-                buttonResumeOrReport.SetCompoundDrawablesWithIntrinsicBounds(Resource.Drawable.report, 0, 0, 0);
-            } else
-            {
-                viewLine.SetBackgroundColor(Color.Red);
-
-                buttonDayLeft.Text = $"{task.DayLeft} DAYs LEFT";
-                buttonDayLeft.SetCompoundDrawablesWithIntrinsicBounds(Resource.Drawable.warning, 0, 0, 0);
-
-                buttonResumeOrReport.Text = "RESUME";
-                buttonResumeOrReport.SetCompoundDrawablesWithIntrinsicBounds(Resource.Drawable.resume, 0, 0, 0);
+                SetDrawablesAndLineColor(Color.Blue, "COMPLETED", Resource.Drawable.complete, "REPORT", Resource.Drawable.report);
             }
+            else
+            {
+                SetDrawablesAndLineColor(Color.Red, $"{task.DayLeft} DAYs LEFT", Resource.Drawable.warning, "RESUME", Resource.Drawable.resume);
+            }
+        }
+
+        public void SetDrawablesAndLineColor(Color color, string textOfButtonDayLeft, int resourceDrawableOfButtonDayLeft, string textOfButtonResumeOrReport, int resourceDrawableOfButtonResumeOrReport)
+        {
+            viewLine.SetBackgroundColor(color);
+
+            buttonDayLeft.Text = textOfButtonDayLeft;
+            buttonDayLeft.SetCompoundDrawablesWithIntrinsicBounds(resourceDrawableOfButtonDayLeft, 0, 0, 0);
+
+            buttonResumeOrReport.Text = textOfButtonResumeOrReport;
+            buttonResumeOrReport.SetCompoundDrawablesWithIntrinsicBounds(resourceDrawableOfButtonResumeOrReport, 0, 0, 0);
         }
     }
 }

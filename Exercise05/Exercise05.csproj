@@ -69,7 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\MyAdapter.cs" />
+    <Compile Include="Adapters\TaskAdapter.cs" />
     <Compile Include="DialogClass.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\Task.cs" />

@@ -63,7 +63,7 @@ namespace Exercise05
                 }
             };
 
-            var adapter = new MyAdapter(tasks);
+            var adapter = new TaskAdapter(tasks);
             recyclerView.SetAdapter(adapter);
         }
     }
