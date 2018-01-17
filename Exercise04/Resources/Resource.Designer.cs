@@ -11,7 +11,7 @@
 
 [assembly: global::Android.Runtime.ResourceDesignerAttribute("Exercise04.Resource", IsApplication=true)]
 
-namespace Exercise04dfd
+namespace Exercise04
 {
 	
 	
