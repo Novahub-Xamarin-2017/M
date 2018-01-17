@@ -30,9 +30,9 @@ namespace Exercise02
             var layoutManager = new LinearLayoutManager(this);
             recyclerView.SetLayoutManager(layoutManager);
 
-            var itemsSelected = Items.ListOfItem.Where(x => !x.Value.Equals("0")).ToList();
+            var itemsSelected = OrderController.ListOfItem.Where(x => x.Quantity != 0).ToList();
 
-            FindViewById<TextView>(Resource.Id.tv_sum).Text = $"Price = {itemsSelected.Sum(x => int.Parse(x.PricePerUnit) * int.Parse(x.Value))}";
+            FindViewById<TextView>(Resource.Id.tv_sum).Text = $"Price = {itemsSelected.Sum(x => x.PricePerUnit * x.Quantity)}";
 
             var adapter = new CustomAdapterCart(itemsSelected);
 

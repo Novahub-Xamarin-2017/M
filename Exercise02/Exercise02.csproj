@@ -78,7 +78,7 @@
     <Compile Include="Cart.cs" />
     <Compile Include="CustomRecyclerView\CustomAdapter.cs" />
     <Compile Include="CustomRecyclerView\CustomAdapterCart.cs" />
-    <Compile Include="CustomRecyclerView\Models\Item.cs" />
+    <Compile Include="CustomRecyclerView\Models\Order.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

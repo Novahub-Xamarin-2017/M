@@ -12,26 +12,21 @@ using Android.Widget;
 
 namespace Exercise02.CustomRecyclerView.Models
 {
-    class Item
+    public class Order
     {
         public String Name { set; get; }
 
-        public String PricePerUnit { set; get; }
+        public int PricePerUnit { set; get; }
 
         public String Unit { set; get; }
 
         public String Image { set; get; }
 
-        public String Value { set; get; } = "0";
+        public int Quantity { set; get; } = 0;
     }
 
-    class Items
+    public class OrderController
     {
-        public static List<Item> ListOfItem { set; get; } = new List<Item>();
-
-        Items()
-        {
-            ListOfItem = new List<Item>();
-        }
+        public static List<Order> ListOfItem = new List<Order>();
     }
 }
