@@ -212,8 +212,8 @@ namespace Exercise03
 			// aapt resource value: 0x7f050002
 			public const int linearLayout1 = 2131034114;
 			
-			// aapt resource value: 0x7f050008
-			public const int recyclerView1 = 2131034120;
+			// aapt resource value: 0x7f050009
+			public const int recyclerView1 = 2131034121;
 			
 			// aapt resource value: 0x7f050006
 			public const int toolbar1 = 2131034118;
@@ -221,8 +221,11 @@ namespace Exercise03
 			// aapt resource value: 0x7f050004
 			public const int tv_name = 2131034116;
 			
-			// aapt resource value: 0x7f050009
-			public const int vdv_video = 2131034121;
+			// aapt resource value: 0x7f050008
+			public const int tv_path = 2131034120;
+			
+			// aapt resource value: 0x7f05000a
+			public const int vdv_video = 2131034122;
 			
 			static Id()
 			{

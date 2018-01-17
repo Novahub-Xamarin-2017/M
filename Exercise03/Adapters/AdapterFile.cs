@@ -9,47 +9,37 @@ using Exercise03;
 using Java.IO;
 using System.IO;
 using File = Java.IO.File;
+using Android.App;
 
 namespace Exercise03.Adapters
 {
     class AdapterFile : RecyclerView.Adapter
     {
-        List<File> items;
+        private List<File> files;
 
-        public AdapterFile(List<File> data)
+        private TextView textViewPath;
+
+        public AdapterFile(List<File> files, TextView textViewPath)
         {
-            items = data;
+            this.files = files;
+            this.textViewPath = textViewPath;
         }
 
-        // Create new views (invoked by the layout manager)
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-
-            //Setup your layout here
-            
             var id = Resource.Layout.CardView;
             var itemView = LayoutInflater.From(parent.Context).
                    Inflate(id, parent, false);
 
-            return new FileViewHolder(itemView);
+            return new FileViewHolder(itemView, textViewPath);
         }
 
-        // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var item = items[position];
-
-            // Replace the contents of the view with that element
-            var holder = viewHolder as FileViewHolder;
-
-            holder.TextViewName.Text = item.Name;
-            holder.MyFile = item;
-
-            var id = (item.IsDirectory) ? Resource.Drawable.folder : Resource.Drawable.file;
-            holder.ImageViewIcon.SetImageResource(id);
+            ((FileViewHolder)viewHolder).File = files[position];
         }
 
-        public override int ItemCount => items.Count;
+        public override int ItemCount => files.Count;
     }
 
     public class FileViewHolder : RecyclerView.ViewHolder
@@ -58,43 +48,60 @@ namespace Exercise03.Adapters
 
         private readonly List<string> imageExtensions = new List<string>() { ".jpg", ".png" };
 
-        public TextView TextViewName { get; set; }
+        private TextView textViewName;
 
-        public ImageView ImageViewIcon { get; set; }
+        private ImageView imageViewIcon;
 
-        public File MyFile { get; set; }
+        private File file;
 
-        public FileViewHolder(View itemView) : base(itemView)
+        public File File
         {
-            TextViewName = itemView.FindViewById<TextView>(Resource.Id.tv_name);
-            ImageViewIcon = itemView.FindViewById<ImageView>(Resource.Id.imv_icon);
+            get => file;
+            set
+            {
+                textViewName.Text = value.Name;
+                file = value;
+
+                var id = (value.IsDirectory) ? Resource.Drawable.folder : Resource.Drawable.file;
+                imageViewIcon.SetImageResource(id);
+            }
+        }
+
+        public FileViewHolder(View itemView, TextView textViewPath) : base(itemView)
+        {
+            textViewName = itemView.FindViewById<TextView>(Resource.Id.tv_name);
+            imageViewIcon = itemView.FindViewById<ImageView>(Resource.Id.imv_icon);
 
             itemView.Click += delegate
             {
-                if (MyFile.IsDirectory)
+                if (file.IsDirectory)
                 {
-                    MainActivity.UpDateData(MainActivity.pathDir + "/" + TextViewName.Text);
+                    textViewPath.Text = file.Path;
                 }
                 else
                 {
-                    if (imageExtensions.Contains(Path.GetExtension(MyFile.Path)))
+                    if (IsImageExtensions(file))
                     {
                         var intent = new Intent(itemView.Context, typeof(Image));
-                        intent.PutExtra("path", MyFile.Path);
+                        intent.PutExtra("path", file.Path);
                         ItemView.Context.StartActivity(intent);
                     }
-                    else if (videoExtensions.Contains(Path.GetExtension(MyFile.Path)))
+                    else if (IsVideoExtensions(file))
                     {
                         var intent = new Intent(itemView.Context, typeof(Video));
-                        intent.PutExtra("path", MyFile.Path);
+                        intent.PutExtra("path", file.Path);
                         ItemView.Context.StartActivity(intent);
                     }
                     else
                     {
-                        Toast.MakeText(itemView.Context, MainActivity.pathDir + "/" + TextViewName.Text, ToastLength.Short).Show();
+                        Toast.MakeText(itemView.Context, file.Path, ToastLength.Short).Show();
                     }
                 }
             };
         }
+
+        public bool IsImageExtensions(File file) => imageExtensions.Contains(Path.GetExtension(file.Path));
+
+        public bool IsVideoExtensions(File file) => videoExtensions.Contains(Path.GetExtension(file.Path));
     }
 }
