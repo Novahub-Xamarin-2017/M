@@ -7,13 +7,15 @@ using System.IO;
 using Newtonsoft.Json;
 using Exercise02.CustomRecyclerView.Models;
 using System.Collections.Generic;
+using Android.Content;
+using System.Linq;
 
 namespace Exercise02
 {
     [Activity(Label = "Exercise02", Theme = "@android:style/Theme.Material.Light.NoActionBar", MainLauncher = true)]
     public class MainActivity : Activity
     {
-        private CustomAdapter adapter;
+        private AdapterOrder adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -31,14 +33,17 @@ namespace Exercise02
             using (var streamReader = new StreamReader(input))
             {
                 var content = streamReader.ReadToEnd();
-                OrderController.ListOfItem = JsonConvert.DeserializeObject<List<Order>>(content);
-                adapter = new CustomAdapter(OrderController.ListOfItem);
+                var items = JsonConvert.DeserializeObject<List<Order>>(content);
+                adapter = new AdapterOrder(items, "Order");
                 recyclerView.SetAdapter(adapter);
             }
 
             FindViewById<ImageButton>(Resource.Id.imagebtn_cart).Click += delegate
             {
-                StartActivity(typeof(Cart));
+                var intent = new Intent(this, typeof(Cart));
+                intent.PutExtra("quantitys", adapter.Orders.Select(x=>x.Quantity.ToString()).ToArray());
+
+                StartActivity(intent);
             };
         }
     }

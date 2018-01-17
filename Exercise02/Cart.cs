@@ -12,6 +12,8 @@ using Android.Widget;
 using Exercise02.CustomRecyclerView;
 using Android.Support.V7.Widget;
 using Exercise02.CustomRecyclerView.Models;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Exercise02
 {
@@ -30,13 +32,35 @@ namespace Exercise02
             var layoutManager = new LinearLayoutManager(this);
             recyclerView.SetLayoutManager(layoutManager);
 
-            var itemsSelected = OrderController.ListOfItem.Where(x => x.Quantity != 0).ToList();
+            var quantitys = Intent.GetStringArrayExtra("quantitys");
 
-            FindViewById<TextView>(Resource.Id.tv_sum).Text = $"Price = {itemsSelected.Sum(x => x.PricePerUnit * x.Quantity)}";
 
-            var adapter = new CustomAdapterCart(itemsSelected);
+             //var adapter = new CustomAdapterCart(itemsSelected);
 
-            recyclerView.SetAdapter(adapter);
+             //recyclerView.SetAdapter(adapter);
+
+             var input = Assets.Open("Data.json");
+
+            using (var streamReader = new StreamReader(input))
+            {
+                var content = streamReader.ReadToEnd();
+                var items = JsonConvert.DeserializeObject<List<Order>>(content);
+
+                var index = 0;
+
+                foreach(var item in items)
+                {
+                    item.Quantity = int.Parse(quantitys[index]);
+                    index++;
+                }
+
+                var itemsSelected = items.Where(x => x.Quantity != 0).ToList();
+
+                FindViewById<TextView>(Resource.Id.tv_sum).Text = $"Price = {itemsSelected.Sum(x => x.PricePerUnit * x.Quantity)}";
+
+                var adapter = new AdapterOrder(itemsSelected, "Cart");
+                recyclerView.SetAdapter(adapter);
+            }
         }
     }
 }

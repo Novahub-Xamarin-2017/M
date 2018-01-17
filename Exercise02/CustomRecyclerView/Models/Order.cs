@@ -24,9 +24,4 @@ namespace Exercise02.CustomRecyclerView.Models
 
         public int Quantity { set; get; } = 0;
     }
-
-    public class OrderController
-    {
-        public static List<Order> ListOfItem = new List<Order>();
-    }
 }

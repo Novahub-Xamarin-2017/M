@@ -76,8 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cart.cs" />
-    <Compile Include="CustomRecyclerView\CustomAdapter.cs" />
-    <Compile Include="CustomRecyclerView\CustomAdapterCart.cs" />
+    <Compile Include="CustomRecyclerView\AdapterOrder.cs" />
     <Compile Include="CustomRecyclerView\Models\Order.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
