@@ -73,10 +73,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\MyAdapter.cs" />
+    <Compile Include="Adapters\AdapterAppBookGame.cs" />
     <Compile Include="DialogClass.cs" />
+    <Compile Include="Fragments\FragmentApp.cs" />
+    <Compile Include="Fragments\FragmentBook.cs" />
+    <Compile Include="Fragments\FragmentGame.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\AppBookGame.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,6 +93,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Dialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Fragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

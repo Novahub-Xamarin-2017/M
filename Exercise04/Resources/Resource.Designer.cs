@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Exercise04.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Exercise044.Resource", IsApplication=true)]
 
-namespace Exercise04
+namespace Exercise044
 {
 	
 	
@@ -172,29 +172,32 @@ namespace Exercise04
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060006
-			public const int btn_app = 2131099654;
-			
 			// aapt resource value: 0x7f060007
-			public const int btn_book = 2131099655;
+			public const int btn_app = 2131099655;
 			
 			// aapt resource value: 0x7f060008
-			public const int btn_game = 2131099656;
+			public const int btn_book = 2131099656;
+			
+			// aapt resource value: 0x7f060009
+			public const int btn_game = 2131099657;
 			
 			// aapt resource value: 0x7f060001
 			public const int cardView1 = 2131099649;
 			
+			// aapt resource value: 0x7f06000a
+			public const int frameLayout1 = 2131099658;
+			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
 			
-			// aapt resource value: 0x7f060005
-			public const int linearLayout1 = 2131099653;
-			
-			// aapt resource value: 0x7f060009
-			public const int rccview_main = 2131099657;
+			// aapt resource value: 0x7f060006
+			public const int linearLayout1 = 2131099654;
 			
 			// aapt resource value: 0x7f060004
-			public const int toolbar1 = 2131099652;
+			public const int rv_fragment = 2131099652;
+			
+			// aapt resource value: 0x7f060005
+			public const int toolbar1 = 2131099653;
 			
 			// aapt resource value: 0x7f060003
 			public const int tv_dialog = 2131099651;
@@ -222,7 +225,10 @@ namespace Exercise04
 			public const int Dialog = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Main = 2130837506;
+			public const int Fragment = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int Main = 2130837507;
 			
 			static Layout()
 			{

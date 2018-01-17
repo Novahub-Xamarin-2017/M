@@ -10,9 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Exercise04.Models
+namespace Exercise044.Models
 {
-    class Item
+    public class AppBookGame
     {
         public string Name { get; set; }
 
