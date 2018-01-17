@@ -13,11 +13,12 @@ namespace Exercise01
     [Activity(Label = "Exercise01", Theme = "@android:style/Theme.Material.Light.DarkActionBar", MainLauncher = true)]
     public class MainActivity : Activity
     {
+        private CustomAdapter adapter;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
             var recyclerView = FindViewById<RecyclerView>(Resource.Id.my_recycler_view);
@@ -25,18 +26,15 @@ namespace Exercise01
             var layoutManager = new LinearLayoutManager(this);
             recyclerView.SetLayoutManager(layoutManager);
 
-            var adapter = new CustomAdapter();
             var input = Assets.Open("Data.json");
 
             using (var streamReader = new StreamReader(input))
             {
                 var content = streamReader.ReadToEnd();
-                var items = JsonConvert.DeserializeObject<List<Item>>(content);
-
+                var items = JsonConvert.DeserializeObject<List<AndroidVersion>>(content);
                 adapter = new CustomAdapter(items);
+                recyclerView.SetAdapter(adapter);
             }
-
-            recyclerView.SetAdapter(adapter);
         }
     }
 }

@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Exercise01.CustomRecyclerView.Models
 {
-    class Item
+    public class AndroidVersion
     {
         public String Name { set; get; }
 
