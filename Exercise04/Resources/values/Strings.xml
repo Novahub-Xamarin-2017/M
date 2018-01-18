@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Exercise04</string>
+  
+  <string name="btn_apps">APPLICATIONS</string>
+  <string name="btn_books">BOOKS</string>
+  <string name="btn_games">GAMES</string>
+</resources>
