@@ -28,7 +28,7 @@ namespace Exercise03.Adapters
 
         public event EventHandler<FileClickEventArgs> ItemClick;
 
-        public AdapterFile(List<File> files, TextView textViewPath)
+        public AdapterFile(List<File> files)
         {
             this.files = files;
         }
@@ -49,7 +49,7 @@ namespace Exercise03.Adapters
 
         public override int ItemCount => files.Count;
 
-        private void OnClick(FileClickEventArgs args) => ItemClick?.Invoke(this, args);
+        private void OnClick(FileClickEventArgs args) => ItemClick?.Invoke(this.files, args);
     }
 
     public class FileViewHolder : RecyclerView.ViewHolder
@@ -58,15 +58,11 @@ namespace Exercise03.Adapters
 
         private ImageView imageViewIcon;
 
-        private File file;
-
         public File File
         {
-            get => file;
             set
             {
                 textViewName.Text = value.Name;
-                file = value;
 
                 var id = (value.IsDirectory) ? Resource.Drawable.folder : Resource.Drawable.file;
                 imageViewIcon.SetImageResource(id);

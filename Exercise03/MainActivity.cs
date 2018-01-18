@@ -24,7 +24,7 @@ namespace Exercise03
 
         private RecyclerView recyclerView;
 
-        private AdapterFile adapter;
+        private AdapterFile adapter = new AdapterFile(new List<File>());
 
         private readonly string root = Environment.GetExternalStoragePublicDirectory("/").Path;
 
@@ -39,27 +39,20 @@ namespace Exercise03
             var layoutManager = new LinearLayoutManager(this);
             recyclerView.SetLayoutManager(layoutManager);
 
+            adapter = new AdapterFile(new List<File>());
+            recyclerView.SetAdapter(adapter);
+
             textViewPath = FindViewById<TextView>(Resource.Id.tv_path);
-            textViewPath.Text = root;
-            textViewPath.TextChanged += delegate
-            {
-                UpDateData(textViewPath.Text);
-            };
+
+            UpDateData(root);
 
             FindViewById<ImageButton>(Resource.Id.im_btn_back).Click += delegate
             {
                 if (!textViewPath.Text.Equals(root))
                 {
-                    textViewPath.Text = Path.GetDirectoryName(textViewPath.Text);
+                    UpDateData(Path.GetDirectoryName(textViewPath.Text));
                 }
             };
-
-            var filesOrNull = (new File(root)).ListFiles();
-            var files = filesOrNull?.ToList() ?? new List<File>();
-            adapter = new AdapterFile(files, textViewPath);
-            recyclerView.SetAdapter(adapter);
-
-            adapter.NotifyDataSetChanged();
 
             adapter.ItemClick += (object sender, FileClickEventArgs e) =>
             {
@@ -67,7 +60,7 @@ namespace Exercise03
 
                 if (file.IsDirectory)
                 {
-                    textViewPath.Text = file.Path;
+                    UpDateData(file.Path);
                 }
                 else
                 {
@@ -97,10 +90,11 @@ namespace Exercise03
 
         private void UpDateData(string path)
         {
+            textViewPath.Text = path;
+
             var filesOrNull = (new File(path)).ListFiles();
-            var files = filesOrNull?.ToList()?? new List<File>();
-            adapter.Files = files;
-            recyclerView.SetAdapter(adapter);
+            adapter.Files = filesOrNull?.ToList() ?? new List<File>();
+            adapter.NotifyDataSetChanged();
         }
     }
 }
