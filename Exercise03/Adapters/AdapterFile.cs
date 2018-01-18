@@ -17,12 +17,20 @@ namespace Exercise03.Adapters
     {
         private List<File> files;
 
-        private TextView textViewPath;
+        public List<File> Files
+        {
+            get => files;
+            set
+            {
+                files = value;
+            }
+        }
+
+        public event EventHandler<FileClickEventArgs> ItemClick;
 
         public AdapterFile(List<File> files, TextView textViewPath)
         {
             this.files = files;
-            this.textViewPath = textViewPath;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -31,7 +39,7 @@ namespace Exercise03.Adapters
             var itemView = LayoutInflater.From(parent.Context).
                    Inflate(id, parent, false);
 
-            return new FileViewHolder(itemView, textViewPath);
+            return new FileViewHolder(itemView, OnClick);
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
@@ -40,14 +48,12 @@ namespace Exercise03.Adapters
         }
 
         public override int ItemCount => files.Count;
+
+        private void OnClick(FileClickEventArgs args) => ItemClick?.Invoke(this, args);
     }
 
     public class FileViewHolder : RecyclerView.ViewHolder
     {
-        private readonly List<string> videoExtensions = new List<string>() { ".mp3", ".mp4", ".flv", ".3gp" };
-
-        private readonly List<string> imageExtensions = new List<string>() { ".jpg", ".png" };
-
         private TextView textViewName;
 
         private ImageView imageViewIcon;
@@ -67,41 +73,21 @@ namespace Exercise03.Adapters
             }
         }
 
-        public FileViewHolder(View itemView, TextView textViewPath) : base(itemView)
+        public FileViewHolder(View itemView, Action<FileClickEventArgs> clickListener) : base(itemView)
         {
             textViewName = itemView.FindViewById<TextView>(Resource.Id.tv_name);
             imageViewIcon = itemView.FindViewById<ImageView>(Resource.Id.imv_icon);
 
             itemView.Click += delegate
             {
-                if (file.IsDirectory)
-                {
-                    textViewPath.Text = file.Path;
-                }
-                else
-                {
-                    if (IsImageExtensions(file))
-                    {
-                        var intent = new Intent(itemView.Context, typeof(Image));
-                        intent.PutExtra("path", file.Path);
-                        ItemView.Context.StartActivity(intent);
-                    }
-                    else if (IsVideoExtensions(file))
-                    {
-                        var intent = new Intent(itemView.Context, typeof(Video));
-                        intent.PutExtra("path", file.Path);
-                        ItemView.Context.StartActivity(intent);
-                    }
-                    else
-                    {
-                        Toast.MakeText(itemView.Context, file.Path, ToastLength.Short).Show();
-                    }
-                }
+                clickListener(new FileClickEventArgs { View = itemView, Position = AdapterPosition });
             };
         }
+    }
 
-        public bool IsImageExtensions(File file) => imageExtensions.Contains(Path.GetExtension(file.Path));
-
-        public bool IsVideoExtensions(File file) => videoExtensions.Contains(Path.GetExtension(file.Path));
+    public class FileClickEventArgs : EventArgs
+    {
+        public View View { get; set; }
+        public int Position { get; set; }
     }
 }
