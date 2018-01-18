@@ -11,11 +11,11 @@ namespace Exercise044.Adapters
 {
     class AdapterAppBookGame : RecyclerView.Adapter
     {
-        private List<AppBookGame> AppBookGames;
+        private List<AppBookGame> appBookGames;
 
         public AdapterAppBookGame(List<AppBookGame> AppBookGames)
         {
-            this.AppBookGames = AppBookGames;
+            this.appBookGames = AppBookGames;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -29,15 +29,15 @@ namespace Exercise044.Adapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            ((AdapterViewHolderAppBookGames)viewHolder).AppBookGame = AppBookGames[position];
+            ((AdapterViewHolderAppBookGames)viewHolder).AppBookGame = appBookGames[position];
         }
 
-        public override int ItemCount => AppBookGames.Count;
+        public override int ItemCount => appBookGames.Count;
     }
 
     public class AdapterViewHolderAppBookGames : RecyclerView.ViewHolder
     {
-        private TextView TextViewName;
+        private TextView textViewName;
 
         private AppBookGame appBookGame;
 
@@ -48,13 +48,13 @@ namespace Exercise044.Adapters
             {
                 appBookGame = value;
 
-                TextViewName.Text = value.Name;
+                textViewName.Text = value.Name;
             }
         }
 
         public AdapterViewHolderAppBookGames(View itemView) : base(itemView)
         {
-            TextViewName = itemView.FindViewById<TextView>(Resource.Id.tv_name);
+            textViewName = itemView.FindViewById<TextView>(Resource.Id.tv_name);
 
             itemView.Click += delegate
             {
