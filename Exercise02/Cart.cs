@@ -24,7 +24,6 @@ namespace Exercise02
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
             SetContentView(Resource.Layout.Cart);
 
             var recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView1);
@@ -34,12 +33,7 @@ namespace Exercise02
 
             var quantitys = Intent.GetStringArrayExtra("quantitys");
 
-
-             //var adapter = new CustomAdapterCart(itemsSelected);
-
-             //recyclerView.SetAdapter(adapter);
-
-             var input = Assets.Open("Data.json");
+            var input = Assets.Open("Data.json");
 
             using (var streamReader = new StreamReader(input))
             {
@@ -58,7 +52,7 @@ namespace Exercise02
 
                 FindViewById<TextView>(Resource.Id.tv_sum).Text = $"Price = {itemsSelected.Sum(x => x.PricePerUnit * x.Quantity)}";
 
-                var adapter = new AdapterOrder(itemsSelected, "Cart");
+                var adapter = new AdapterOrder(itemsSelected, false);
                 recyclerView.SetAdapter(adapter);
             }
         }

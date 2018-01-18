@@ -34,7 +34,7 @@ namespace Exercise02
             {
                 var content = streamReader.ReadToEnd();
                 var items = JsonConvert.DeserializeObject<List<Order>>(content);
-                adapter = new AdapterOrder(items, "Order");
+                adapter = new AdapterOrder(items, true);
                 recyclerView.SetAdapter(adapter);
             }
 

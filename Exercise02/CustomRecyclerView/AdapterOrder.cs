@@ -16,22 +16,19 @@ namespace Exercise02.CustomRecyclerView
     {
         private List<Order> orders;
 
-        private string viewMode;
+        private bool viewOnly;
 
-        public List<Order> Orders
-        {
-            get => orders;
-        }
+        public List<Order> Orders => orders;
 
-        public AdapterOrder(List<Order> orders, string viewMode)
+        public AdapterOrder(List<Order> orders, bool viewOnly)
         {
             this.orders = orders;
-            this.viewMode = viewMode;
+            this.viewOnly = viewOnly;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            if (viewMode.Equals("Order"))
+            if (viewOnly)
             {
                 var id = Resource.Layout.CardView;
                 var itemView = LayoutInflater.From(parent.Context).
@@ -51,7 +48,7 @@ namespace Exercise02.CustomRecyclerView
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            if (viewMode.Equals("Order"))
+            if (viewOnly)
             {
                 ((AdapterViewHolderOrder)viewHolder).Order = orders[position];
             }
