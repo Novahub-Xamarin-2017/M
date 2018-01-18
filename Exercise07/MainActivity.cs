@@ -7,15 +7,16 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using Exercise07.Models;
 
 namespace Exercise07
 {
     [Activity(Label = "Exercise07", Theme = "@android:style/Theme.Material.Light.DarkActionBar", MainLauncher = true)]
     public class MainActivity : Activity
     {
-        private MyAdapter adapter;
+        private CountryAdapter adapter;
 
-        private List<string> countrys;
+        private List<object> countries;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -28,27 +29,31 @@ namespace Exercise07
             var layoutManager = new LinearLayoutManager(this);
             recyclerView.SetLayoutManager(layoutManager);
 
-            adapter = new MyAdapter();
-            var input = Assets.Open("Countrys.json");
+            var input = Assets.Open("Countries.json");
 
             using (var streamReader = new StreamReader(input))
             {
                 var content = streamReader.ReadToEnd();
-                countrys = JsonConvert.DeserializeObject<List<string>>(content);
+                countries = JsonConvert.DeserializeObject<List<Country>>(content)
+                    .GroupBy(x => x.Name.First())
+                    .Select(x => new List<object>() { x.Key.ToString() }.Union(x))
+                    .SelectMany(x => x)
+                    .ToList();
 
-                adapter = new MyAdapter(countrys);
+                adapter = new CountryAdapter(countries);
             }
 
             recyclerView.SetAdapter(adapter);
+            adapter.NotifyDataSetChanged();
 
             var searchView = FindViewById<SearchView>(Resource.Id.sv_country);
 
             searchView.QueryTextChange += delegate
             {
-                adapter = new MyAdapter(countrys.Where(x => x.Contains(searchView.Query)).ToList());
+                adapter.Countries = countries.Where(x => x is Country ? ((Country)x).Name.Contains(searchView.Query) : x.ToString().Contains(searchView.Query))
+                    .ToList<object>(); ;
                 recyclerView.SetAdapter(adapter);
             };
         }
     }
 }
-

@@ -18,8 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/padding_medium"
-            android:background="@android:color/holo_blue_bright"
-            android:id="@+id/tv_country"
-            android:textColor="@android:color/holo_red_dark" />
+            android:id="@+id/tv_country" />
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -75,19 +75,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\MyAdapter.cs" />
+    <Compile Include="Adapters\CountryAdapter.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\Countrys.json" />
+    <AndroidAsset Include="Assets\Countries.json" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\CardView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CardViewCountry.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
