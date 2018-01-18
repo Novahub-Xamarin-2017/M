@@ -6,9 +6,9 @@ using Exercise03.Adapters;
 using System.Collections.Generic;
 using Java.IO;
 using System.Linq;
-using System.IO;
 using Android.Content;
 using File = Java.IO.File;
+using System.IO;
 
 namespace Exercise03
 {
@@ -34,11 +34,9 @@ namespace Exercise03
 
             FindViewById<ImageButton>(Resource.Id.im_btn_back).Click += delegate
             {
-                var path = textViewPath.Text;
-
                 if (!path.Equals(Environment.GetExternalStoragePublicDirectory("/").Path))
                 {
-                    textViewPath.Text = path.Substring(0, !path.Contains('/') ? 0 : path.LastIndexOf('/'));
+                    textViewPath.Text = Path.GetDirectoryName(textViewPath.Text);
                 }
             };
 
