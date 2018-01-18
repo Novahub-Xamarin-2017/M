@@ -19,10 +19,10 @@ namespace Exercise03.Adapters
 
         public List<File> Files
         {
-            get => files;
             set
             {
                 files = value;
+                NotifyDataSetChanged();
             }
         }
 
@@ -58,10 +58,13 @@ namespace Exercise03.Adapters
 
         private ImageView imageViewIcon;
 
+        private File file;
+
         public File File
         {
             set
             {
+                file = value;
                 textViewName.Text = value.Name;
 
                 var id = (value.IsDirectory) ? Resource.Drawable.folder : Resource.Drawable.file;
@@ -76,7 +79,7 @@ namespace Exercise03.Adapters
 
             itemView.Click += delegate
             {
-                clickListener(new FileClickEventArgs { View = itemView, Position = AdapterPosition });
+                clickListener(new FileClickEventArgs { View = itemView, SelectedFile = file });
             };
         }
     }
@@ -84,6 +87,6 @@ namespace Exercise03.Adapters
     public class FileClickEventArgs : EventArgs
     {
         public View View { get; set; }
-        public int Position { get; set; }
+        public File SelectedFile { get; set; }
     }
 }

@@ -56,7 +56,7 @@ namespace Exercise03
 
             adapter.ItemClick += (object sender, FileClickEventArgs e) =>
             {
-                var file = adapter.Files[e.Position];
+                var file = e.SelectedFile;
 
                 if (file.IsDirectory)
                 {
@@ -94,7 +94,6 @@ namespace Exercise03
 
             var filesOrNull = (new File(path)).ListFiles();
             adapter.Files = filesOrNull?.ToList() ?? new List<File>();
-            adapter.NotifyDataSetChanged();
         }
     }
 }
