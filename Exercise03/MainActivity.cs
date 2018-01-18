@@ -61,13 +61,6 @@ namespace Exercise03
 
             adapter.NotifyDataSetChanged();
 
-            /*adapter.OnClick += delegate
-            {
-
-            };
-
-            adapter.onc*/
-
             adapter.ItemClick += (object sender, FileClickEventArgs e) =>
             {
                 var file = adapter.Files[e.Position];
